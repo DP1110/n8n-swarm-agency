@@ -1,0 +1,489 @@
+{
+  "id": "V8u1idfmIoSwBt2D",
+  "name": "7-Agent AI Swarm Agency (Final)",
+  "active": false,
+  "isArchived": false,
+  "versionId": "33101ca5-d44b-4542-a91e-a1d687a0247d",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "createdAt": "2026-06-03T07:16:51.943Z",
+  "updatedAt": "2026-06-03T07:16:52.185Z",
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "connections": {
+    "Global Objective (Webhook)": {
+      "main": [
+        [
+          {
+            "node": "CEO (Delegator)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CEO (Delegator)": {
+      "main": [
+        [
+          {
+            "node": "Product Designer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lead Developer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Security Auditor",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "QA Engineer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Technical Writer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Project Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini 2.5 Flash (Shared)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CEO (Delegator)",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Product Designer",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Lead Developer",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Security Auditor",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "QA Engineer",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Technical Writer",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Project Manager",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "CEO (Synthesizer)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Global Objective (GET Webhook)": {
+      "main": [
+        [
+          {
+            "node": "CEO (Delegator)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product Designer": {
+      "main": [
+        [
+          {
+            "node": "Merge All Agents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge All Agents": {
+      "main": [
+        [
+          {
+            "node": "CEO (Synthesizer)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Developer": {
+      "main": [
+        [
+          {
+            "node": "Merge All Agents",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Security Auditor": {
+      "main": [
+        [
+          {
+            "node": "Merge All Agents",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "QA Engineer": {
+      "main": [
+        [
+          {
+            "node": "Merge All Agents",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Technical Writer": {
+      "main": [
+        [
+          {
+            "node": "Merge All Agents",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Project Manager": {
+      "main": [
+        [
+          {
+            "node": "Merge All Agents",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "CEO (Synthesizer)": {
+      "main": [
+        [
+          {
+            "node": "Format Report Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Report Output": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "id": "f27b80bd-e7e8-42aa-abfa-7474441b698f",
+      "name": "Global Objective (Webhook)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        384
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ai-swarm-agency",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "952dbd52-805b-4d90-93a7-8126c911014e"
+    },
+    {
+      "id": "dd7b3228-3346-4a8d-9ab0-4806b922f73b",
+      "name": "CEO (Delegator)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        224,
+        480
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the CEO and Master Orchestrator of a world-class software engineering team.\n\nGlobal Objective: {{ $json.query.objective || $json.body.objective || $json.body || $json.query }}\n\nDecompose this objective into 6 clear, specific, actionable mandates for:\n1. Product Designer - UX/UI, feature specs, user journeys\n2. Lead Developer - Architecture, tech stack, DB schema, API design\n3. Security Auditor - Threat modeling, vulnerability assessment\n4. QA Engineer - Test strategy, test cases, automation plan\n5. Technical Writer - Documentation structure, API docs, user guides\n6. Project Manager - Sprint planning, task breakdown, risk register\n\nFor EACH provide: specific deliverables, constraints, and success criteria. Return as a numbered list.",
+        "batching": {}
+      },
+      "retryOnFail": true
+    },
+    {
+      "id": "a302875e-6910-465f-9efb-3092122e88c8",
+      "name": "Gemini 2.5 Flash (Shared)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        304,
+        704
+      ],
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-lite",
+        "options": {
+          "temperature": 0.4,
+          "maxOutputTokens": 4096
+        }
+      }
+    },
+    {
+      "id": "26eea227-6ce2-4c7d-9ba0-190a6740dd8d",
+      "name": "Global Objective (GET Webhook)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        576
+      ],
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "ai-swarm-agency-get",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "639c5f18-8b95-41a2-8684-84d9f672f318"
+    },
+    {
+      "id": "2ee9761a-e89b-4ead-a963-a93c7a54eb2c",
+      "name": "Product Designer",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        576,
+        0
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Product Designer. CEO Directive: {{ $json.text }}\n\nDeliver: 1) Product Vision 2) 2-3 User Personas 3) Core User Journeys 4) Prioritized Feature List (P0/P1/P2) 5) Wireframe Descriptions 6) Design System Tokens 7) Success Metrics. Use markdown.",
+        "batching": {}
+      },
+      "retryOnFail": true
+    },
+    {
+      "id": "f65198d1-03bb-45b7-9b5e-a246292b2efd",
+      "name": "Merge All Agents",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        928,
+        416
+      ],
+      "parameters": {
+        "numberInputs": 6
+      }
+    },
+    {
+      "id": "4866d2da-8d2b-48f7-98b7-03b337363eb5",
+      "name": "Lead Developer",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        576,
+        192
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Lead Developer. CEO Directive: {{ $json.text }}\n\nDeliver: 1) Technology Stack Decision 2) System Architecture 3) Database Schema 4) API Contract (endpoints, methods, schemas) 5) Auth Strategy 6) Scalability Plan 7) Dev Environment Setup. Use markdown with code blocks.",
+        "batching": {}
+      },
+      "retryOnFail": true
+    },
+    {
+      "id": "7c2a6c23-293d-444e-958f-5a8e8fb626f1",
+      "name": "Security Auditor",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        576,
+        384
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Security Auditor. CEO Directive: {{ $json.text }}\n\nDeliver: 1) STRIDE Threat Model 2) OWASP Top 10 Checklist 3) Auth & Session Security 4) Data Protection (encryption at rest/transit) 5) Input Validation 6) Infrastructure Security 7) Compliance (GDPR/SOC2) 8) Pen-test Scope. Use markdown.",
+        "batching": {}
+      },
+      "retryOnFail": true
+    },
+    {
+      "id": "8d5d621e-b480-4421-a243-7fe25a65d317",
+      "name": "QA Engineer",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        576,
+        576
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the QA Engineer. CEO Directive: {{ $json.text }}\n\nDeliver: 1) Testing Strategy (unit/integration/E2E) 2) Test Environment Setup 3) 10-15 Critical Test Scenarios 4) Acceptance Criteria 5) Automation Plan 6) Performance Testing 7) Regression Testing 8) Bug Severity Classification. Use markdown.",
+        "batching": {}
+      },
+      "retryOnFail": true
+    },
+    {
+      "id": "340173f5-1fac-4ffe-8276-01545e952e69",
+      "name": "Technical Writer",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        576,
+        768
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Technical Writer. CEO Directive: {{ $json.text }}\n\nDeliver: 1) Documentation Architecture 2) Getting Started Guide 3) API Reference Structure 4) User Guide Outline 5) Developer Onboarding Guide 6) Changelog & Versioning 7) Sample API Endpoint Documentation. Use markdown.",
+        "batching": {}
+      },
+      "retryOnFail": true
+    },
+    {
+      "id": "16f94991-cccf-4fc5-9d31-0e76df52d5eb",
+      "name": "Project Manager",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        576,
+        960
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Project Manager. CEO Directive: {{ $json.text }}\n\nDeliver: 1) Project Scope Statement 2) Sprint 1 Backlog (8-12 user stories) 3) Task Dependency Graph 4) 4-Week Timeline & Milestones 5) Top 8 Risks with Mitigations 6) Resource Allocation 7) Communication Plan 8) Definition of Done. Use markdown.",
+        "batching": {}
+      },
+      "retryOnFail": true
+    },
+    {
+      "id": "5195fc34-5eb8-441c-b76f-295bc5c9decd",
+      "name": "CEO (Synthesizer)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1152,
+        480
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the CEO Synthesizer of a 7-agent AI engineering swarm. All 6 specialists have completed their analysis. Aggregated output:\n\n{{ $input.all().map(item => item.json.text || item.json.output || '').join('\\n\\n---\\n\\n') }}\n\nSynthesize into a MASTER PROJECT PROPOSAL with sections: 1) Executive Summary 2) Product Design 3) Technical Architecture 4) Security Assessment 5) QA Plan 6) Documentation Plan 7) Project Management 8) Cross-Cutting Concerns 9) Risks & Mitigations 10) Recommended Next Steps. Be comprehensive and board-ready. Use markdown.",
+        "batching": {}
+      },
+      "executeOnce": true,
+      "retryOnFail": true
+    },
+    {
+      "id": "b44bad07-bb11-4fd4-b33d-bac437b7c61e",
+      "name": "Format Report Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        480
+      ],
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForEachItem",
+        "jsCode": "const raw = $json.text || $json.output || '';\nconst codeBlocks = [];\nlet processedText = raw.replace(/```([\\w]*)?\\n?([\\s\\S]*?)```/g, (match, lang, code) => {\n  const id = `CODE_${codeBlocks.length}`;\n  codeBlocks.push({ id, lang: lang ? lang.trim() : 'text', code: code.trim() });\n  return `\\n\\n[${id}]\\n\\n`;\n});\nconst sections = [];\nconst lines = processedText.split('\\n');\nlet currentSection = null;\nlet currentBody = [];\nfor (const line of lines) {\n  const headingMatch = line.match(/^#{1,3}\\s+(.+)/);\n  if (headingMatch) {\n    if (currentSection) sections.push({ title: currentSection, body: currentBody.join('\\n').trim() });\n    currentSection = headingMatch[1].replace(/^\\d+\\.\\s*/, '').trim();\n    currentBody = [];\n  } else { if (currentSection) currentBody.push(line); }\n}\nif (currentSection) sections.push({ title: currentSection, body: currentBody.join('\\n').trim() });\nif (sections.length === 0) sections.push({ title: 'Master Project Proposal', body: processedText.trim() });\nreturn { json: { success: true, report: { title: 'Master Project Proposal - 7-Agent AI Swarm', generated_at: new Date().toISOString(), agent_count: 7, word_count: raw.split(/\\s+/).filter(Boolean).length, sections_count: sections.length, sections, code_blocks: codeBlocks, raw_markdown: raw } } };"
+      }
+    },
+    {
+      "id": "e39143f5-c9fb-483b-99f0-6c4a756b2905",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1728,
+        480
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, GET, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "activeVersion": null,
+  "tags": [],
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  },
+  "parentFolderId": null,
+  "scopes": [
+    "workflow:create",
+    "workflow:delete",
+    "workflow:execute",
+    "workflow:execute-chat",
+    "workflow:list",
+    "workflow:move",
+    "workflow:publish",
+    "workflow:read",
+    "workflow:share",
+    "workflow:unpublish",
+    "workflow:unshare",
+    "workflow:update",
+    "workflow:updateRedactionSetting"
+  ],
+  "canExecute": true
+}
